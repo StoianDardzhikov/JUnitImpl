@@ -1,4 +1,4 @@
-package org.example;
+package org.example.junit;
 
 public class AssertionFailedError extends Error {
     String message;

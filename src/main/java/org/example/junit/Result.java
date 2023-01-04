@@ -1,4 +1,4 @@
-package org.example;
+package org.example.junit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,31 +8,31 @@ public class Result {
     List<Failure> failures;
     String className;
 
-    Result(String className) {
+    public Result(String className) {
         testResults = new ArrayList<>();
         failures = new ArrayList<>();
         this.className = className;
     }
 
-    void addTestResult(TestResult testResult) {
+    public void addTestResult(TestResult testResult) {
         testResults.add(testResult);
     }
 
-    void addFailure(Failure failure) {
+    public void addFailure(Failure failure) {
         failures.add(failure);
     }
 
-    void printResult() {
-        System.out.println("Running tests for " + className + "...");
-        System.out.println();
+    public void printResult() {
+        System.out.println("\u001B[36m| +-- " + className + "");
         for (TestResult testResult : testResults) {
-            System.out.println(testResult.toString());
+            System.out.println("\u001B[36m|   +-- " + testResult.toString());
         }
+        System.out.println("\u001B[36m| --+");
         System.out.println();
         if (failures.size() == 0)
             return;
 
-        System.out.println("Failures:");
+        System.out.println("\u001B[0m" + "Failures(" + failures.size() + "):");
         for (Failure failure: failures) {
             System.out.println(failure.causeToString());
         }

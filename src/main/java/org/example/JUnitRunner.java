@@ -1,5 +1,10 @@
 package org.example;
 
+import org.example.Annotations.*;
+import org.example.junit.Failure;
+import org.example.junit.Result;
+import org.example.junit.TestResult;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -23,7 +28,7 @@ public class JUnitRunner {
         int passedTests = 0;
         int failedTests = 0;
         Class<?> clazz = Class.forName(className);
-        Result result = new Result(clazz.getName());
+        Result result = new Result(clazz.getSimpleName());
         Object instance = clazz.getDeclaredConstructor().newInstance();
         Method[] methods = clazz.getDeclaredMethods();
         List<Method> beforeEachMethods = new ArrayList<>();
@@ -54,12 +59,15 @@ public class JUnitRunner {
         runMethods(afterAllMethods, instance);
         result.printResult();
         System.out.println();
-        System.out.println("Tests ran " + (passedTests + failedTests) + " passed: " + passedTests + " failed: " + failedTests);
+        System.out.println("Tests ran " + (passedTests + failedTests)
+                + " passed: \u001B[32m" + passedTests + "\u001B[0m" +
+                " failed: \u001B[31m" + failedTests + "\u001B[0m" +
+                String.format(" success rate (%.2f%%)", ((passedTests + 0d) / (passedTests + failedTests)) * 100d));
     }
 
     private static void parseMethods(Object instance, Method[] methods, List<Method> beforeEachMethods, List<Method> afterEachMethods, List<Method> afterAllMethods, Map<String, Method> tests) throws IllegalAccessException, InvocationTargetException {
         for (Method method : methods) {
-            String displayName = method.getName();
+            String displayName = method.getName() + "()";
             boolean isTest = false;
             Annotation[] annotations = method.getDeclaredAnnotations();
             for (Annotation annotation : annotations) {

@@ -1,20 +1,20 @@
-package org.example;
+package org.example.junit;
 
 public class TestResult {
     boolean passed;
     String displayName;
     Failure failure;
-    TestResult(String displayName) {
+    public TestResult(String displayName) {
         passed = true;
         this.displayName = displayName;
     }
 
-    void fail(Failure failure) {
+    public void fail(Failure failure) {
         passed = false;
         this.failure = failure;
     }
 
     public String toString() {
-        return displayName + " " + (passed ? "[OK]" : "[X] " + failure.toString());
+        return "\u001B[34m" + displayName + " " + (passed ? "\u001B[32m[OK]" : "\u001B[31m[X] " + failure.toString());
     }
 }

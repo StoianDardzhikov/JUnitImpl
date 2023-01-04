@@ -1,8 +1,9 @@
-package org.example;
+package org.example.Annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Test {
+public @interface DisplayName {
+    String value();
 }
