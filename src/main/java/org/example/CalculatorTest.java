@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.Annotations.DisplayName;
+import org.example.Annotations.RepeatedTest;
 import org.example.Annotations.Test;
 import org.example.junit.Assertions;
 
@@ -40,6 +41,7 @@ public class CalculatorTest {
     }
 
     @Test
+    @RepeatedTest(2)
     @DisplayName("Example for a test that throws exception")
     public void testForException() {
         Object f = null;
