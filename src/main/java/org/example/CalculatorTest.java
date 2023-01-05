@@ -19,10 +19,16 @@ public class CalculatorTest {
         });
     }
 
+    @Test(timeout = 1000)
+    public void timeoutPreemptively() throws InterruptedException {
+        Thread.sleep(20000);
+    }
+
     @Test
-    public void timeoutPreemptively() {
-        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-            Thread.sleep(1500);
+    public void assertAllTest() {
+        Assertions.assertAll(() -> {
+            assertEquals(2, 2);
+            assertEquals(2, 3);
         });
     }
 
@@ -41,7 +47,7 @@ public class CalculatorTest {
     }
 
     @Test
-    @RepeatedTest(2)
+    @RepeatedTest(-2)
     @DisplayName("Example for a test that throws exception")
     public void testForException() {
         Object f = null;

@@ -1,5 +1,6 @@
 package org.example.junit;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -116,5 +117,19 @@ public class Assertions {
         if (!done.get())
             throw new AssertionFailedError(messageSupplier.get());
         thread.interrupt();
+    }
+
+    public static void assertAll(Executable... executables) {
+        for (int i = 0; i < executables.length; i++) {
+            Executable executable = executables[i];
+            try {
+                executable.execute();
+            } catch (Throwable throwable) {
+                if (throwable.getClass().isAssignableFrom(AssertionFailedError.class))
+                    throw new AssertionFailedError("Not all asserts passed!");
+                else
+                    throw new Error(throwable);
+            }
+        }
     }
 }

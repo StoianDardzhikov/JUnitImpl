@@ -7,7 +7,7 @@ public class AssertionFailedError extends Error {
         return message;
     }
 
-    AssertionFailedError(String message) {
+    public AssertionFailedError(String message) {
         this.message = message;
     }
 }

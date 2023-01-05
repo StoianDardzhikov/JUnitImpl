@@ -14,6 +14,8 @@ public class TestResult {
         this.failure = failure;
     }
 
+    public boolean isPassed() { return passed; }
+    public Failure getFailure() { return  failure; }
     public String toString() {
         return "\u001B[34m" + displayName + " " + (passed ? "\u001B[32m[OK]" : "\u001B[31m[X] " + failure.toString());
     }
